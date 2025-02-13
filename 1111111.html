@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>С Днём Святого Валентина!</title>
+  <style>
+    body {
+      background-color: #ffe6f0; /* нежно-розовый фон */
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      color: #a83282;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      padding: 20px;
+    }
+    
+    .heart {
+      font-size: 100px;
+      animation: beat 1s infinite;
+    }
+    
+    @keyframes beat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+    
+    h1, h2 {
+      margin: 20px 0;
+    }
+    
+    p {
+      font-size: 24px;
+      max-width: 600px;
+      padding: 0 20px;
+    }
+    
+    .button, .poll-button {
+      margin-top: 30px;
+      padding: 10px 20px;
+      background-color: #ff99cc;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .button:hover, .poll-button:hover {
+      background-color: #ff4da6;
+    }
+    
+    .poll-buttons {
+      display: flex;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    
+    input[type="text"] {
+      padding: 10px;
+      font-size: 18px;
+      border: 2px solid #ff99cc;
+      border-radius: 25px;
+      text-align: center;
+      margin-top: 20px;
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Основная страница -->
+  <div id="mainContainer" class="container">
+    <div class="heart">❤️</div>
+    <h1>С Днём Святого Валентина!</h1>
+    <p>Радость моя, пусть этот день наполнит твоё сердце любовью и радостью. Ты – лучик света в моей жизни, и я благодарен судьбе за то, что она нас свела вместе.</p>
+    <button class="button" onclick="alert('С любовью, твой особенный человек!')">Нажми меня</button>
+    <button class="button" onclick="showPoll()">Перейти к опросу</button>
+  </div>
+  
+  <!-- Опрос "Любишь ли ты меня?" -->
+  <div id="pollContainer" class="container" style="display: none;">
+    <h2>Любишь ли ты меня?</h2>
+    <div class="poll-buttons">
+      <button id="btnYes" class="poll-button" onclick="showResult()">Да</button>
+      <button id="btnNo" class="poll-button" onmouseover="hideNoButton()">Нет</button>
+    </div>
+    <div id="result"></div>
+    <button class="button" onclick="showCompatibility()">Проверить совместимость</button>
+  </div>
+  
+  <!-- Анализ совместимости -->
+  <div id="compatibilityContainer" class="container" style="display: none;">
+    <h2>Проверим нашу совместимость!</h2>
+    <input type="text" id="inputName" placeholder="Введи своё имя">
+    <button class="poll-button" onclick="startCompatibilityAnalysis()">Анализировать</button>
+    <p id="loading" style="display: none;">Загрузка...</p>
+    <p id="compatibilityResult"></p>
+  </div>
+  
+  <script>
+    // Переход к опросу
+    function showPoll() {
+      document.getElementById('mainContainer').style.display = 'none';
+      document.getElementById('pollContainer').style.display = 'flex';
+    }
+    
+    // Скрытие кнопки "Нет" при наведении мыши
+    function hideNoButton() {
+      document.getElementById('btnNo').style.display = 'none';
+    }
+    
+    // Показ результата опроса при нажатии "Да"
+    function showResult() {
+      document.getElementById('result').innerText = 'А я знал)';
+    }
+    
+    // Переход к анализу совместимости
+    function showCompatibility() {
+      document.getElementById('pollContainer').style.display = 'none';
+      document.getElementById('compatibilityContainer').style.display = 'flex';
+    }
+    
+    // Запуск анализа совместимости
+    function startCompatibilityAnalysis() {
+      var name = document.getElementById('inputName').value.trim();
+      if (!name) {
+        alert('Солнце, введи своё имя!');
+        return;
+      }
+      
+      // Скрываем поле ввода и кнопку анализа
+      document.getElementById('inputName').style.display = 'none';
+      document.querySelector('#compatibilityContainer button').style.display = 'none';
+      
+      // Показываем анимацию загрузки
+      var loadingElem = document.getElementById('loading');
+      loadingElem.style.display = 'block';
+      
+      // Имитируем загрузку в течение 3 секунд
+      setTimeout(function() {
+        loadingElem.style.display = 'none';
+        document.getElementById('compatibilityResult').innerText = 'Конечно мы совместимы, а ты как думала?';
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
